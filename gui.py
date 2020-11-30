@@ -1,8 +1,9 @@
 import time
 import tkinter as tk
+from tkinter.ttk import *
 from tkinter.filedialog import askopenfilename
 
-import PIL
+import PIL.Image, PIL.ImageTk
 import cv2
 import main
 
@@ -107,11 +108,13 @@ class App:
             main.video_analyze(self.filename)
 
     def clicked_bt3(self):
-        self.video_window = tk.Tk()
+        self.video_window = tk.Toplevel(self.window)
         self.video_window.title("Przeanalizowane video")
-        vid = MyVideoCapture("output.avi")
-        canvas = tk.Canvas(self.video_window, width=vid.width, height=vid.height)
-        canvas.pack()
+        self.vid = MyVideoCapture("output.avi")
+        self.canvas = tk.Canvas(self.video_window, width=self.vid.width, height=self.vid.height)
+        self.canvas.pack()
+        self.delay = 15
+        self.update()
 
     def snapshot(self):
              # Get a frame from the video source
@@ -125,11 +128,10 @@ class App:
         ret, frame = self.vid.get_frame()
 
         if ret:
-            print("biała gwiazda")
-            self.photo = PIL.ImageTk.PhotoImage(image = PIL.Image.fromarray(frame))
-            self.canvas.create_image(0, 0, image = self.photo, anchor = tk.NW)
+            self.photo = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(frame))
+            self.canvas.create_image(0, 0, image=self.photo, anchor=tk.NW)
 
-        self.window.after(self.delay, self.update)
+        self.video_window.after(self.delay, self.update)
 
 
 class MyVideoCapture:
@@ -146,7 +148,6 @@ class MyVideoCapture:
 
      def get_frame(self):
          if self.vid.isOpened():
-             print("jazda")
              ret, frame = self.vid.read()
              if ret:
                  # Return a boolean success flag and the current frame converted to BGR
