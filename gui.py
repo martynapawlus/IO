@@ -1,6 +1,3 @@
-#!/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
-
-
 import time
 import tkinter as tk
 from tkinter.ttk import *
