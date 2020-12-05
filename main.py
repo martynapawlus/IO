@@ -80,7 +80,7 @@ class Traffic_Analyzer:
                 confidences = []
                 boxes = []
 
-
+                # detecting through network layers
                 for out in outs:
                     for detection in out:
                         scores = detection[5:]
