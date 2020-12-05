@@ -1,8 +1,7 @@
-# This script is responsible for graphic user interface of Traffic Analyzer application 
+# This script is responsible for graphic user interface of Traffic Analyzer application
 
 import time
 import tkinter as tk
-from tkinter.ttk import *
 from tkinter.filedialog import askopenfilename
 
 import PIL.Image, PIL.ImageTk
@@ -18,44 +17,46 @@ class App:
          self.window.title("Analizator ruchu")
 
          # Adding all widgets
-         self.window.geometry('450x220')
+         self.window.geometry('400x220')
          self.window.resizable(False, False)
          self.video_window = 0
          self.filename = ""     # path to the video
-         
+
          # selecting a video for an analysis
-         self.l_vid_choice = tk.Label(self.window, text="Wybierz nagranie\n do analizy")
+         self.l_vid_choice = tk.Label(self.window, text="Wybierz nagranie\n do analizy", font="Verdana 10 bold")
          self.l_vid_choice.grid(column=0, row=1)
-         self.bt_vid_choice = tk.Button(self.window, text="Przeglądaj", command=self.search_btn, fg="blue")
+         self.bt_vid_choice = tk.Button(self.window, text="Przeglądaj", command=self.search_btn, fg="magenta", font="Verdana 8")
          self.bt_vid_choice.grid(column=1, row=1)
-         self.l_accept = tk.Label(self.window, text="Brak wgranego pliku", fg="grey")
+         self.l_accept = tk.Label(self.window, text="Brak wgranego pliku", fg="grey", font="Verdana 8 italic")
          self.l_accept.grid(column=1, row=2)
-         
+
          # starting an analysis
-         self.l_an_start = tk.Label(self.window, text="Rozpocznij analizę\n wybranego nagrania")
+         self.l_an_start = tk.Label(self.window, text="Rozpocznij analizę\n wybranego nagrania", font="Verdana 10 bold")
          self.l_an_start.grid(column=0, row=3)
-         self.bt_an_start = tk.Button(self.window, text="Start analizy", command=self.analyze_btn, fg="red", state="disabled")
+         self.bt_an_start = tk.Button(self.window, text="Start analizy", command=self.analyze_btn, fg="red", state="disabled", font="Verdana 8")
          self.bt_an_start.grid(column=1, row=3)
-         self.l_analyze = tk.Label(self.window, fg="grey", text="")
+         self.l_analyze = tk.Label(self.window, fg="grey", text="", font="Verdana 8 italic")
          self.l_analyze.grid(column=1, row=4)
-            
+
          # saving the results to CSV file
-         self.l_vid_choice = tk.Label(self.window, text="Zapisz wyniki\n do pliku CSV")
+         self.l_vid_choice = tk.Label(self.window, text="Zapisz wyniki\n do pliku CSV", font="Verdana 10 bold")
          self.l_vid_choice.grid(column=0, row=5)
-         self.bt_save_csv = tk.Button(self.window, text="Zapisz CSV", fg="blue", command=self.save_csv_btn, state="disabled")
+         self.bt_save_csv = tk.Button(self.window, text="Zapisz CSV", fg="blue", command=self.save_csv_btn, state="disabled", font="Verdana 8")
          self.bt_save_csv.grid(column=1, row=5)
-        
+         self.l_save = tk.Label(self.window, fg="grey", text="", font="Verdana 8 italic")
+         self.l_save.grid(column=1, row=6)
+
          # playing analyzed video
-         self.l_vid_choice = tk.Label(self.window, text="Odtwórz przeanalizowane\n nagranie")
-         self.l_vid_choice.grid(column=0, row=6)
-         self.bt_play_vid = tk.Button(self.window, text="Odtwórz film", command=self.play_btn, fg="blue", state="disabled")
-         self.bt_play_vid.grid(column=1, row=6)
-        
-         self.window.mainloop()                                         # run Tkinter main window       
+         self.l_vid_choice = tk.Label(self.window, text="Odtwórz przeanalizowane\n nagranie", font="Verdana 10 bold")
+         self.l_vid_choice.grid(column=0, row=7)
+         self.bt_play_vid = tk.Button(self.window, text="Odtwórz film", command=self.play_btn, fg="blue", state="disabled", font="Verdana 8")
+         self.bt_play_vid.grid(column=1, row=7)
+
+         self.window.mainloop()                                         # run Tkinter main window
 
 # Action listeners
     def search_btn(self):
-        acceptable_types = [('Pliki wideo', '*.avi;*.mp4;')]
+        acceptable_types = [('Pliki wideo', '*.avi;*.mp4;*.mov')]
         self.filename = askopenfilename(filetype=acceptable_types)
         self.l_accept["text"] = ".../" + os.path.split(self.filename)[1]
         if self.filename != "":
@@ -72,7 +73,9 @@ class App:
         self.bt_save_csv["state"] = "active"
 
     def save_csv_btn(self):
+        self.l_save["text"] = "Generowanie pliku csv..."
         self.traffic_analyzer.write_timestamps()                        # saving the results
+        self.l_save["text"] = "Generowanie pliku csv zakończone!"
 
     def play_btn(self):
         self.video_window = tk.Toplevel(self.window)                    # creating new window in GUI for video playing
