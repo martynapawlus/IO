@@ -16,9 +16,9 @@ class Traffic_Analyzer:
         self.dir_path = os.path.dirname(self.video_path)        # directory path of the video
         self.output_video_file = ""
         self.output_csv_file = ""
-        self.yolo_weights = "IO_Project/yolov3.weights"         # path to the YOLO weights
-        self.yolo_cfg = "IO_Project/yolov3.cfg"                 # path to the YOLO.cfg
-        self.coco_names = "IO_Project/coco.names"               # path to the possible analyzing classes
+        self.yolo_weights = "yolov3.weights"         # path to the YOLO weights
+        self.yolo_cfg = "yolov3.cfg"                 # path to the YOLO.cfg
+        self.coco_names = "coco.names"               # path to the possible analyzing classes
         
         # alternatives
         # self.yolo_weights = "yolov3-tiny_final.weights"
