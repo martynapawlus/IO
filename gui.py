@@ -55,8 +55,8 @@ class App:
 
 # Action listeners
     def search_btn(self):
-        # acceptable_types = [('Pliki wideo', '*.avi;*.mp4;*.mov')]
-        self.filename = askopenfilename()
+        acceptable_types = [('Pliki wideo', '*.avi;*.mp4;*.mov')]
+        self.filename = askopenfilename(filetype=acceptable_types)
         self.l_accept["text"] = ".../" + os.path.split(self.filename)[1]
         if self.filename != "":
             self.bt_an_start["state"] = "active"
