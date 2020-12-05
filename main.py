@@ -14,9 +14,9 @@ class Traffic_Analyzer:
         self.dir_path = os.path.dirname(self.video_path)
         self.output_video_file = ""
         self.output_csv_file = ""
-        self.yolo_weights = "yolov3.weights"
-        self.yolo_cfg = "yolov3.cfg"
-        self.coco_names = "coco.names"
+        self.yolo_weights = "IO_Project/yolov3.weights"
+        self.yolo_cfg = "IO_Project/yolov3.cfg"
+        self.coco_names = "IO_Project/coco.names"
         # self.yolo_weights = "yolov3-tiny_final.weights"
         # self.yolo_cfg = "yolov3_tiny.cfg"
         # self.coco_names = "coco_tiny.names"
@@ -26,7 +26,7 @@ class Traffic_Analyzer:
     def video_analyze(self):
 
         t = time.localtime()
-        self.current_time = time.strftime("%H:%M:%S", t)
+        self.current_time = time.strftime("%H_%M_%S", t)
         self.output_video_file = self.current_time + "_" + os.path.split(self.video_path)[1]
 
         net = cv2.dnn.readNet(self.yolo_weights, self.yolo_cfg)
@@ -117,6 +117,7 @@ class Traffic_Analyzer:
             self.total_cars.append(cars_number)
             self.total_trucks.append(trucks_number)
             self.total_two_wheelers.append(two_wheelers_number)
+            self.total_unknown.append(unknown_number)
 
             cv2.putText(img, str(self.frame), (20, 20), self.FONT, 0.5, self.COLOUR, 2)
             # cv2.imshow("Video", img)
