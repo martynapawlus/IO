@@ -1,9 +1,7 @@
-# This script is responsible for graphic user interface of Traffic Analyzer application
-
 import time
 import tkinter as tk
+from tkinter.ttk import *
 from tkinter.filedialog import askopenfilename
-
 import PIL.Image, PIL.ImageTk
 import cv2
 import main
@@ -56,7 +54,7 @@ class App:
 
 # Action listeners
     def search_btn(self):
-        acceptable_types = [('Pliki wideo', '*.avi;*.mp4;*.mov')]
+        acceptable_types = [('Pliki wideo', '*.avi;*.mp4;')]
         self.filename = askopenfilename(filetype=acceptable_types)
         self.l_accept["text"] = ".../" + os.path.split(self.filename)[1]
         if self.filename != "":
@@ -64,6 +62,7 @@ class App:
 
 
     def analyze_btn(self):
+        self.bt_an_start["state"] = "disabled"
         self.l_analyze["text"] = "Przetwarzanie video ..."
         self.traffic_analyzer = main.Traffic_Analyzer(self.filename)    # creating an object of Traffic_Analyzer class defined in main.py
         self.traffic_analyzer.video_analyze()                           # starting an analysis
@@ -71,11 +70,15 @@ class App:
         self.l_analyze["text"] = "Przetwarzanie video zakończone!"
         self.bt_play_vid["state"] = "active"
         self.bt_save_csv["state"] = "active"
+        self.bt_an_start["state"] = "active"
+
 
     def save_csv_btn(self):
+        self.bt_save_csv["state"] = "disabled"
         self.l_save["text"] = "Generowanie pliku csv..."
         self.traffic_analyzer.write_timestamps()                        # saving the results
         self.l_save["text"] = "Generowanie pliku csv zakończone!"
+        self.bt_save_csv["state"] = "disabled"
 
     def play_btn(self):
         self.video_window = tk.Toplevel(self.window)                    # creating new window in GUI for video playing
