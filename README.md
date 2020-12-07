@@ -1,4 +1,6 @@
-<b>ANALIZATOR RUCHU DROGOWEGO</b>   
+<b>ANALIZATOR RUCHU DROGOWEGO</b>  
+by Martyna, Julia, Karolina  
+  
 Aplikacja ma na celu rozpoznawanie pojazdów na nagraniu oraz ich klasyfikację do 4 kategorii:  
 1. Car   
 2. Bus or Truck  
